@@ -20,7 +20,7 @@ namespace ExcelExport
         Excel.Application xlApp;
         Excel.Workbook xlWB;
         Excel.Worksheet xlSheet;
-
+        string[] headers;
         
         public Form1()
         {
@@ -28,6 +28,7 @@ namespace ExcelExport
             LoadData();
             dataGridView1.DataSource = lakasok;
             CreateExcel();
+            FormatTable();
         }
         public void LoadData() //Hozz létre egy void visszatérésű értékű, paraméter nélküli függvényt a Form1 osztályon belül LoadData néven, és hívd meg a Form konstruktorából.
         {
@@ -63,7 +64,7 @@ namespace ExcelExport
 
         private void CreateTable() //ide fogom rakni, amit bele akarok írni az excelbe
         {
-            string[] headers = new string[] //oszlopok elnevezései
+            headers = new string[] //oszlopok elnevezései
             {
                 "Kód",
                 "Eladó",
@@ -135,5 +136,21 @@ namespace ExcelExport
             return ExcelCoordinate;
         }
 
+        private void FormatTable()
+        {
+            Excel.Range headerRange = xlSheet.get_Range(GetCell(1, 1), GetCell(1, headers.Length));
+            headerRange.Font.Bold = true;
+            headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+            headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+            headerRange.EntireColumn.AutoFit();
+            headerRange.RowHeight = 40;
+            headerRange.Interior.Color = Color.LightBlue;
+            headerRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+            int lastRowID = xlSheet.UsedRange.Rows.Count;
+            Excel.Range completeTableRange = xlSheet.get_Range(GetCell(1,1),GetCell(lastRowID,headers.Length));
+            completeTableRange.BorderAround2(Excel.XlLineStyle.xlContinuous, Excel.XlBorderWeight.xlThick);
+
+        }
     }
 }

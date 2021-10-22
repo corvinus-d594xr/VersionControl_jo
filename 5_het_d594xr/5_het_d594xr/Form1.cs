@@ -22,6 +22,36 @@ namespace _5_het_d594xr
             Ticks = context.Ticks.ToList();
             dataGridView1.DataSource = Ticks;
             CreatePortfolio();
+
+            int elemszám = Portfolio.Count();
+
+            decimal részvényekSzáma = (from x in Portfolio select x.Volume).Sum();
+            MessageBox.Show(string.Format("Részvények száma: {0}", részvényekSzáma));
+
+            DateTime minDátum = (from x in Ticks select x.TradingDay).Min();
+
+            DateTime maxDátum = (from x in Ticks select x.TradingDay).Max();
+
+           
+            int elteltNapokSzáma = (maxDátum - minDátum).Days;
+
+            DateTime optMinDátum = (from x in Ticks where x.Index == "OTP" select x.TradingDay).Min();
+
+            var kapcsolt =
+                from
+                    x in Ticks
+                join
+            y in Portfolio
+            on x.Index equals y.Index
+                select new
+                {
+                    Index = x.Index,
+                    Date = x.TradingDay,
+                    Value = x.Price,
+                    Volume = y.Volume
+                };
+            dataGridView1.DataSource = kapcsolt.ToList();
+
         }
         private void CreatePortfolio()
         {
@@ -30,6 +60,20 @@ namespace _5_het_d594xr
             Portfolio.Add(new PortfolioItem() { Index = "ELMU", Volume = 10 });
 
             dataGridView2.DataSource = Portfolio;
+        }
+        private decimal GetPortfolioValue(DateTime date)
+        {
+            decimal value = 0;
+            foreach (var item in Portfolio)
+            {
+                var last = (from x in Ticks
+                            where item.Index == x.Index.Trim()
+                               && date <= x.TradingDay
+                            select x)
+                            .First();
+                value += (decimal)last.Price * item.Volume;
+            }
+            return value;
         }
     }
 }

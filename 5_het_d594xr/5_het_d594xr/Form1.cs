@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace _5_het_d594xr
         PortfolioEntities context = new PortfolioEntities();
         List<Tick> Ticks;
         List<PortfolioItem> Portfolio = new List<PortfolioItem>();
+        List<decimal> nyereségekRendezve;
         public Form1()
         {
             InitializeComponent();
@@ -69,7 +71,7 @@ namespace _5_het_d594xr
                 Console.WriteLine(i + " " + ny);
             }
 
-            var nyereségekRendezve = (from x in Nyereségek
+            nyereségekRendezve = (from x in Nyereségek
                                       orderby x
                                       select x)
                                         .ToList();
@@ -97,6 +99,31 @@ namespace _5_het_d594xr
                 value += (decimal)last.Price * item.Volume;
             }
             return value;
+        }
+
+        private void Save_button_Click(object sender, EventArgs e)
+        {
+            var sfd = new SaveFileDialog();
+            sfd.InitialDirectory = Application.StartupPath;
+
+            if (sfd.ShowDialog() !=DialogResult.OK)
+            {
+                return;
+            }
+
+            using (var sw = new StreamWriter(sfd.FileName, false, Encoding.UTF8))
+            {
+                sw.WriteLine("Időszak;Nyereség");
+                for (int i = 0; i < nyereségekRendezve.Count(); i++)
+                {
+                    sw.WriteLine(string.Format(
+                    "{0};{1}",
+                    Math.Round((double)i/(double)nyereségekRendezve.Count(),2),
+                    nyereségekRendezve[i]
+                    ));
+                }
+                
+            }
         }
     }
 }

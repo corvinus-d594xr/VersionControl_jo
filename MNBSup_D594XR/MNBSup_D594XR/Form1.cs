@@ -22,7 +22,7 @@ namespace MNBSup_D594XR
         public Form1()
         {
             InitializeComponent();
-            //comboBox1.DataSource = Currencies;
+            comboBox1.DataSource = Currencies;
 
             MNBArfolyamServiceSoapClient mnbService = new MNBArfolyamServiceSoapClient();
             GetCurrenciesRequestBody request = new GetCurrenciesRequestBody();

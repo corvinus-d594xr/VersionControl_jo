@@ -23,12 +23,7 @@ namespace _7gyak_D594XR.Entities
             DrawImage(e.Graphics);
         }
 
-        private void DrawImage(Graphics graphics)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void DrawImage(Graphics g)
+        protected void DrawImage(Graphics g)
         {
             g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
         }

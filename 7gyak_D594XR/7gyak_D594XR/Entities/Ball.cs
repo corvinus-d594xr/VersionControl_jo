@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _7gyak_D594XR.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,7 +9,14 @@ using System.Windows.Forms;
 
 namespace _7gyak_D594XR.Entities
 {
-    public class Ball : Label
+    public class Ball : Toy
+    {
+        protected override void DrawImage(Graphics g)
+        {
+            g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
+        }
+    }
+    /*public class Ball : Label
     {
         public Ball()
         {
@@ -32,5 +40,5 @@ namespace _7gyak_D594XR.Entities
         {
             Left += 1;
         }
-    }
+    }*/
 }

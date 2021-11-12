@@ -1,4 +1,5 @@
-﻿using _7gyak_D594XR.Entities;
+﻿using _7gyak_D594XR.Abstractions;
+using _7gyak_D594XR.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,45 +14,65 @@ namespace _7gyak_D594XR
 {
     public partial class Form1 : Form
     {
-        private List<Ball> _balls = new List<Ball>();
+        List<Toy> _toys = new List<Toy>();
 
-        private BallFactory _factory;
-        public BallFactory Factory
+        private IToyFactory factory;
+
+        Toy _nextToy;
+
+        public IToyFactory Factory
         {
-            get { return _factory; }
-            set { _factory = value; }
+            get { return factory; }
+            set { factory = value; }
         }
 
         public Form1()
         {
             InitializeComponent();
-            Factory = new BallFactory();
+            Factory = new CarFactory();
         }
 
         private void createTimer_Tick(object sender, EventArgs e)
         {
             var ball = Factory.CreateNew();
-            _balls.Add(ball);
-            ball.Left = -ball.Width;
+            _toys.Add(ball);
             mainPanel.Controls.Add(ball);
+            ball.Left = ball.Width * (-1);
+
         }
 
         private void conveyorTimer_Tick(object sender, EventArgs e)
         {
             var maxPosition = 0;
-            foreach (var ball in _balls)
+            foreach (var item in _toys)
             {
-                ball.MoveBall();
-                if (ball.Left > maxPosition)
-                    maxPosition = ball.Left;
+                item.MoveToy();
+                if (item.Left > maxPosition)
+                {
+                    maxPosition = item.Left;
+                }
             }
-
             if (maxPosition > 1000)
             {
-                var oldestBall = _balls[0];
-                mainPanel.Controls.Remove(oldestBall);
-                _balls.Remove(oldestBall);
+                Toy ba = _toys.First();
+                _toys.Remove(ba);
+                mainPanel.Controls.Remove(ba);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Factory = new CarFactory();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Factory = new BallFactory();
+        }
+
+        void DisplayNext()
+        {
+
         }
     }
 }

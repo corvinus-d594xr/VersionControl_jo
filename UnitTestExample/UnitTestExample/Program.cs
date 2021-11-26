@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace UnitTestExample_D594XR
+namespace UnitTestExample
 {
     static class Program
     {

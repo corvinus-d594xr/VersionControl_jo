@@ -30,14 +30,20 @@ namespace _7gyak_D594XR
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.createTimer = new System.Windows.Forms.Timer(this.components);
             this.mainPanel = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.lblNext = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
+            this.lblNext = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.conveyorTimer = new System.Windows.Forms.Timer(this.components);
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // createTimer
+            // 
+            this.createTimer.Tick += new System.EventHandler(this.createTimer_Tick_1);
             // 
             // mainPanel
             // 
@@ -50,23 +56,15 @@ namespace _7gyak_D594XR
             this.mainPanel.Size = new System.Drawing.Size(776, 426);
             this.mainPanel.TabIndex = 0;
             // 
-            // button2
+            // button3
             // 
-            this.button2.Location = new System.Drawing.Point(192, 163);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 82);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "BALL";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(192, 52);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 82);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "CAR";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button3.Location = new System.Drawing.Point(104, 20);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(146, 99);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // lblNext
             // 
@@ -77,15 +75,27 @@ namespace _7gyak_D594XR
             this.lblNext.TabIndex = 3;
             this.lblNext.Text = "label1";
             // 
-            // button3
+            // button1
             // 
-            this.button3.Location = new System.Drawing.Point(404, 92);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(146, 99);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button1.Location = new System.Drawing.Point(22, 156);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(102, 82);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "CAR";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(22, 319);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(102, 82);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "BALL";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // conveyorTimer
+            // 
+            this.conveyorTimer.Tick += new System.EventHandler(this.conveyorTimer_Tick_1);
             // 
             // Form1
             // 
@@ -103,12 +113,14 @@ namespace _7gyak_D594XR
 
         #endregion
 
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer createTimer;
         private System.Windows.Forms.Panel mainPanel;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblNext;
         private System.Windows.Forms.Button button3;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Timer conveyorTimer;
     }
 }
 

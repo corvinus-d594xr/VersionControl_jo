@@ -21,18 +21,24 @@ namespace Mikro_D594XR
         public Form1()
         {
             InitializeComponent();
-            Population = GetPopulation(@"C:\Temp\nép.teszt.csv");
+
             BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
 
+            
+        }
+
+        private void StartSimulation(int endYear, string csvPath)
+        {
+            Population = GetPopulation(csvPath);
             // Végigmegyünk a vizsgált éveken
-            for (int year = 2005; year <= 2024; year++)
+            for (int year = 2005; endYear <= 2024; year++)
             {
                 // Végigmegyünk az összes személyen
                 for (int i = 0; i < Population.Count; i++)
                 {
                     // Ide jön a szimulációs lépés
-                    SimStep(year,Population[i]);
+                    SimStep(year, Population[i]);
                 }
 
                 int nbrOfMales = (from x in Population
@@ -41,8 +47,8 @@ namespace Mikro_D594XR
                 int nbrOfFemales = (from x in Population
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
-                Console.WriteLine(
-                    string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
+                textBox1.Text+=(
+                    string.Format("Szimulációs év:{0}\n\t Fiúk:{1}\n\t Lányok:{2}\n\n", year, nbrOfMales, nbrOfFemales));
             }
         }
 
@@ -145,5 +151,20 @@ namespace Mikro_D594XR
             return deathProbabilities;
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            StartSimulation((int)numericUpDown1.Value, textBox1.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.FileName = textBox1.Text;
+            if (ofd.ShowDialog()!=DialogResult.OK)
+            {
+                return;
+            }
+            textBox1.Text = ofd.FileName;
+        }
     }
 }

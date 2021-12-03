@@ -8,8 +8,8 @@ namespace Mikro_D594XR.Entities
 {
     public class BirthProbability
     {
-        public Gender Gender { get; set; }
         public int Age { get; set; }
-        public bool P { get; set; }
+        public int NbrOfChildren { get; set; }
+        public double P { get; set; }
     }
 }

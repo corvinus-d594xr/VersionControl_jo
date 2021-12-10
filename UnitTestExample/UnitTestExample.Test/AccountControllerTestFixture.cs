@@ -22,10 +22,10 @@ namespace UnitTestExample.Test
         public void TestValidateEmail(string email, bool expectedResult)
         {
             // Arrange
-            var accountController = new AccountController();
+            var accountController = new AccountController(); //létrehozom az accountcontrollert
 
             // Act
-            var actualResult = accountController.ValidateEmail(email);
+            var actualResult = accountController.ValidateEmail(email); //lefuttatom a validálását annak az emailnek ami felülre is be van írva meg ide is
 
             // Assert
             Assert.AreEqual(expectedResult, actualResult);
@@ -69,7 +69,7 @@ namespace UnitTestExample.Test
             // Assert
             Assert.AreEqual(email, actualResult.Email);
             Assert.AreEqual(password, actualResult.Password);
-            Assert.AreNotEqual(Guid.Empty, actualResult.ID);
+            Assert.AreNotEqual(Guid.Empty, actualResult.ID);//az üres guid ne egyezzen meg az actualResult id-jával
         }
 
          [
@@ -90,11 +90,11 @@ namespace UnitTestExample.Test
             try
             {
                 var actualResult = accountController.Register(email, password);
-                Assert.Fail();
+                Assert.Fail();//ha ide jut a kód, akkor garantáltan hibás a működés
             }
             catch (Exception ex)
             {
-                Assert.IsInstanceOf<ValidationException>(ex);
+                Assert.IsInstanceOf<ValidationException>(ex); //ValidationException-höz kell-->References-->Add Reference-->Assemblies-->System.Activities
             }
 
             // Assert

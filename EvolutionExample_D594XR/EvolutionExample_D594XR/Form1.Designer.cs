@@ -29,20 +29,48 @@ namespace EvolutionExample_D594XR
         /// </summary>
         private void InitializeComponent()
         {
+            this.LBLgeneration = new System.Windows.Forms.Label();
+            this.btnStart = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // LBLgeneration
+            // 
+            this.LBLgeneration.AutoSize = true;
+            this.LBLgeneration.Location = new System.Drawing.Point(27, 13);
+            this.LBLgeneration.Name = "LBLgeneration";
+            this.LBLgeneration.Size = new System.Drawing.Size(83, 17);
+            this.LBLgeneration.TabIndex = 0;
+            this.LBLgeneration.Text = "1.generáció";
+            // 
+            // btnStart
+            // 
+            this.btnStart.Location = new System.Drawing.Point(44, 397);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 1;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Visible = false;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.LBLgeneration);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label LBLgeneration;
+        private System.Windows.Forms.Button btnStart;
     }
 }
 

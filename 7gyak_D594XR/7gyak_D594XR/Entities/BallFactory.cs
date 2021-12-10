@@ -10,7 +10,7 @@ namespace _7gyak_D594XR.Entities
 {
     public class BallFactory : IToyFactory
     {
-        public Color BallColor { get; private set; }
+        public Color BallColor { get; set; }
 
         public Toy CreateNew()
         {

@@ -29,5 +29,6 @@ namespace _7gyak_D594XR.Abstractions
         {
             Left += 1;
         }
+        
     }
 }

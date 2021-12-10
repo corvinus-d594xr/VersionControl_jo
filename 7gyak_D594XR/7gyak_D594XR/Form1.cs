@@ -32,16 +32,15 @@ namespace _7gyak_D594XR
             Factory = new CarFactory();
         }
 
-        private void createTimer_Tick(object sender, EventArgs e)
+        private void createTimer_Tick_1(object sender, EventArgs e)
         {
             var toy = Factory.CreateNew();
             _toys.Add(toy);
             mainPanel.Controls.Add(toy);
             toy.Left = toy.Width * (-1);
-
         }
 
-        private void conveyorTimer_Tick(object sender, EventArgs e)
+        private void conveyorTimer_Tick_1(object sender, EventArgs e)
         {
             var maxPosition = 0;
             foreach (var item in _toys)
@@ -58,7 +57,9 @@ namespace _7gyak_D594XR
                 _toys.Remove(ba);
                 mainPanel.Controls.Remove(ba);
             }
+
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -69,7 +70,7 @@ namespace _7gyak_D594XR
         {
             Factory = new BallFactory
             {
-                BallColor = btnBallColor.BackColor
+                BallColor = button2.BackColor
             };
 
         }

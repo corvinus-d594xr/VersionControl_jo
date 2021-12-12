@@ -15,20 +15,20 @@ namespace UnitTestExample.Test
     public class AccountControllerTestFixture
     {
         [Test,
-            TestCase("abcd1234", false),
+            TestCase("abcd1234", false),//nem jó emailcím
             TestCase("irf@uni-corvinus", false),
             TestCase("irf.uni-corvinus.hu", false),
-            TestCase("irf@uni-corvinus.hu", true)]
+            TestCase("irf@uni-corvinus.hu", true)]//tényleges tesztesetek //jó emailcím
         public void TestValidateEmail(string email, bool expectedResult)
         {
             // Arrange
             var accountController = new AccountController(); //létrehozom az accountcontrollert
 
             // Act
-            var actualResult = accountController.ValidateEmail(email); //lefuttatom a validálását annak az emailnek ami felülre is be van írva meg ide is
+            var actualResult = accountController.ValidateEmail(email); //lefuttatom a validálását annak az emailnek ami felülre is be van írva meg ide is, tehát a validateemail metódusát akarom tesztelni az accountcontrollernek
 
             // Assert
-            Assert.AreEqual(expectedResult, actualResult);
+            Assert.AreEqual(expectedResult, actualResult);//assert osztállyal lehet ellenőrizni, megegyezik-e az expectedResult az actualResulttal
         }
 
         [

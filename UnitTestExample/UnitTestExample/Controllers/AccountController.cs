@@ -49,7 +49,7 @@ namespace UnitTestExample.Controllers
                 @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
         }
 
-        public bool ValidatePassword(string password)
+        public bool ValidatePassword(string password)//visszakapja az eredményt boolba, h sikerült-e validálni
         {
             if (!Regex.IsMatch(password, @"^[a-zA-Z0-9]{8,}$"))
                 return false;

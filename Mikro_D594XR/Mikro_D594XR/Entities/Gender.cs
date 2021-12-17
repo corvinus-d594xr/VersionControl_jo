@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mikro_D594XR.Entities
 {
-    public enum Gender
+    public enum Gender//felsorolt típus pl hét napjai, és nem számként tárolom, véges adat
     {
         Male = 1,
         Female = 2

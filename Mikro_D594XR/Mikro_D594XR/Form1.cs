@@ -16,13 +16,13 @@ namespace Mikro_D594XR
     {
         Random rng = new Random();
         List<Person> Population = null;
-        List<BirthProbability> BirthProbabilities = null;
+        List<BirthProbability> BirthProbabilities = null;//azért null mert úgyis feltöltjük csv-vel szóval itt nem kell a new-val kombinálni
         List<DeathProbability> DeathProbabilities = null;
         public Form1()
         {
             InitializeComponent();
 
-            BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");
+            BirthProbabilities = GetBirthProbabilities(@"C:\Temp\születés.csv");//
             DeathProbabilities = GetDeathProbabilities(@"C:\Temp\halál.csv");
 
             
@@ -32,7 +32,7 @@ namespace Mikro_D594XR
         {
             Population = GetPopulation(csvPath);
             // Végigmegyünk a vizsgált éveken
-            for (int year = 2005; endYear <= 2024; year++)
+            for (int year = 2005;  year<= endYear; year++)//endyear addig megyek amig a felhasználó megadta
             {
                 // Végigmegyünk az összes személyen
                 for (int i = 0; i < Population.Count; i++)
@@ -48,7 +48,7 @@ namespace Mikro_D594XR
                                     where x.Gender == Gender.Female && x.IsAlive
                                     select x).Count();
                 textBox1.Text+=(
-                    string.Format("Szimulációs év:{0}\n\t Fiúk:{1}\n\t Lányok:{2}\n\n", year, nbrOfMales, nbrOfFemales));
+                    string.Format("Szimulációs év:{0}\n\t Fiúk:{1}\n\t Lányok:{2}\n\n", year, nbrOfMales, nbrOfFemales));//kerdes
             }
         }
 
@@ -88,12 +88,13 @@ namespace Mikro_D594XR
             }
         }
 
-        public List<Person> GetPopulation(string csvpath)
+        public List<Person> GetPopulation(string csvpath)//egy emberekből álló listát kell visszaadnunk, string csvpath-->itt kapom meg, hogy milyen típusú fájlt szeretnék beolvasni
         {
             List<Person> population = new List<Person>();
-
+            //fájl felolvasás
             using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
             {
+                //sr.ReadLine(); ha van header, azt csak beolvasom és utána nem foglalkozok vele
                 while (!sr.EndOfStream)
                 {
                     var line = sr.ReadLine().Split(';');
@@ -122,7 +123,7 @@ namespace Mikro_D594XR
                     {
                         Age = int.Parse(line[0]),
                         NbrOfChildren = int.Parse(line[1]),
-                        P = double.Parse(line[2])
+                        P = double.Parse(line[2].Replace(".", ","))
                     }) ;
                 }
             }
@@ -141,9 +142,10 @@ namespace Mikro_D594XR
                     var line = sr.ReadLine().Split(';');
                     deathProbabilities.Add(new DeathProbability()
                     {
+                        
                         Gender = (Gender)Enum.Parse(typeof(Gender), line[0]),
                         Age = int.Parse(line[1]),
-                        P = double.Parse(line[2].Replace(",","."))
+                        P = double.Parse(line[2].Replace(".",","))
                     });
                 }
             }
